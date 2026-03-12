@@ -18,6 +18,7 @@ interface Album {
   title: string
   mediaType: string
   condition: string
+  username: string
 }
 
 interface AlbumsData {
@@ -35,7 +36,7 @@ function App() {
   } = useAuth0()
 
   const { loading, error, data } = useQuery<AlbumsData>(LIST_ALL_ALBUMS, {
-    skip: !isAuthenticated, // Only fetch data if authenticated
+    skip: !isAuthenticated,
   })
 
   const signup = () => login({ authorizationParams: { screen_hint: "signup" } })

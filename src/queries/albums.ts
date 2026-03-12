@@ -8,6 +8,7 @@ export const GET_ALBUMS_BY_ARTIST = gql`
       title
       mediaType
       condition
+      username
     }
   }
 `;
@@ -20,6 +21,7 @@ export const LIST_ALL_ALBUMS = gql`
       title
       mediaType
       condition
+      username
     }
   }
 `;
