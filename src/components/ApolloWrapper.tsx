@@ -1,5 +1,7 @@
-import { ReactNode, useMemo } from 'react'
-import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client'
+import { useMemo } from 'react'
+import type { ReactNode } from 'react'
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
 import { useAuth0 } from '@auth0/auth0-react'
 
 interface ApolloWrapperProps {
