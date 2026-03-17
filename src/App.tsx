@@ -117,7 +117,7 @@ function App() {
       </div>
 
       {/* Table */}
-      <div style={{ width: '100%', maxWidth: '768px', border: '2px solid black', borderRadius: '8px', overflow: 'hidden' }}>
+      <div style={{ width: '100%', maxWidth: '900px', border: '2px solid black', borderRadius: '8px', overflow: 'hidden' }}>
         <Table>
           <TableHeader>
             <TableRow style={{ borderBottom: '1px solid black' }}>
