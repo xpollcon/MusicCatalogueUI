@@ -53,23 +53,27 @@ function App() {
     item.mediaType.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
-  if (authLoading) return <div className="flex items-center justify-center min-h-screen">Loading authentication...</div>
+  if (authLoading) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      Loading authentication...
+    </div>
+  )
 
   if (!isAuthenticated) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen gap-4">
-        <h1 className="text-3xl font-bold mb-4">Music Catalogue</h1>
-        {authError && <p className="text-red-500">Error: {authError.message}</p>}
-        <div className="flex gap-4">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', gap: '16px' }}>
+        <h1 style={{ fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '16px' }}>Music Catalogue</h1>
+        {authError && <p style={{ color: '#ef4444' }}>Error: {authError.message}</p>}
+        <div style={{ display: 'flex', gap: '16px' }}>
           <button
             onClick={() => signup()}
-            className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            style={{ padding: '8px 24px', backgroundColor: '#2563eb', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '1rem' }}
           >
             Signup
           </button>
           <button
             onClick={() => login()}
-            className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            style={{ padding: '8px 24px', backgroundColor: '#16a34a', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '1rem' }}
           >
             Login
           </button>
@@ -78,51 +82,63 @@ function App() {
     )
   }
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen">Loading albums...</div>
-  if (error) return <div className="flex items-center justify-center min-h-screen">Error: {error.message}</div>
+  if (loading) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      Loading albums...
+    </div>
+  )
+  if (error) return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+      Error: {error.message}
+    </div>
+  )
 
   return (
-    <div className="flex flex-col items-center gap-8 p-8">
-      <div className="w-full max-w-3xl flex justify-between items-center" style={{ padding: '12px 0', borderBottom: '1px solid #e5e7eb' }}>
-        <p className="text-sm">Logged in as {user?.email}</p>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', padding: '32px' }}>
+      {/* Header bar */}
+      <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #e5e7eb' }}>
+        <p style={{ fontSize: '0.875rem' }}>Logged in as {user?.email}</p>
         <button
           onClick={() => logout()}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+          style={{ padding: '8px 16px', backgroundColor: '#dc2626', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
         >
           Logout
         </button>
       </div>
 
-      <div className="w-full max-w-3xl flex justify-center">
+      {/* Banner image */}
+      <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'center' }}>
         <img src={musicCatalogue} style={{ width: '100%', height: 'auto' }} alt="Music Catalogue" />
       </div>
 
-      <div className="w-full max-w-3xl flex justify-center">
+      {/* Search bar */}
+      <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'center' }}>
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
       </div>
 
-      <div className="w-full max-w-3xl" style={{ border: '2px solid black', borderRadius: '8px', overflow: 'hidden' }}>
+      {/* Table */}
+      <div style={{ width: '100%', maxWidth: '768px', border: '2px solid black', borderRadius: '8px', overflow: 'hidden' }}>
         <Table>
           <TableHeader>
             <TableRow style={{ borderBottom: '1px solid black' }}>
-              <TableHead className="text-center" style={{ borderRight: '1px solid black' }}>Artist</TableHead>
-              <TableHead className="text-center" style={{ borderRight: '1px solid black' }}>Title</TableHead>
-              <TableHead className="text-center" style={{ borderRight: '1px solid black' }}>Media Type</TableHead>
-              <TableHead className="text-center">Condition</TableHead>
+              <TableHead style={{ textAlign: 'center', borderRight: '1px solid black' }}>Artist</TableHead>
+              <TableHead style={{ textAlign: 'center', borderRight: '1px solid black' }}>Title</TableHead>
+              <TableHead style={{ textAlign: 'center', borderRight: '1px solid black' }}>Media Type</TableHead>
+              <TableHead style={{ textAlign: 'center' }}>Condition</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredData.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-center">No albums found</TableCell>
+                <TableCell colSpan={4} style={{ textAlign: 'center' }}>No albums found</TableCell>
               </TableRow>
             ) : (
               filteredData.map((item: Album) => (
                 <TableRow key={item.id} style={{ borderBottom: '1px solid black' }}>
-                  <TableCell className="text-center" style={{ borderRight: '1px solid black' }}>{item.artist}</TableCell>
-                  <TableCell className="text-center" style={{ borderRight: '1px solid black' }}>{item.title}</TableCell>
-                  <TableCell className="text-center" style={{ borderRight: '1px solid black' }}>{item.mediaType}</TableCell>
-                  <TableCell className="text-center">{item.condition}</TableCell>
+                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.artist}</TableCell>
+                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.title}</TableCell>
+                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.mediaType}</TableCell>
+                  <TableCell style={{ textAlign: 'center' }}>{item.condition}</TableCell>
                 </TableRow>
               ))
             )}
