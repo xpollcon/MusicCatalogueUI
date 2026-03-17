@@ -99,7 +99,9 @@ function App() {
         <img src={musicCatalogue} style={{ width: '50%', height: 'auto' }} alt="Music Catalogue" />
       </div>
 
-      <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      <div className="w-full max-w-3xl flex justify-center">
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+      </div>
 
       <div className="w-full max-w-3xl" style={{ border: '2px solid black', borderRadius: '8px', overflow: 'hidden' }}>
         <Table>
