@@ -8,13 +8,13 @@ interface SearchBarProps {
 
 export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: '36rem' }}>
-      <Search style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', height: '20px', width: '20px', color: '#6b7280' }} />
+    <div style={{ position: 'relative', width: '100%', maxWidth: '20rem' }}>
+      <Search style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', height: '16px', width: '16px', color: '#6b7280' }} />
       <Input
         placeholder="Search albums..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        style={{ height: '56px', borderRadius: '12px', paddingLeft: '48px', paddingRight: '16px', width: '100%', fontSize: '1rem' }}
+        style={{ height: '36px', borderRadius: '8px', paddingLeft: '32px', paddingRight: '12px', width: '100%', fontSize: '0.875rem' }}
       />
     </div>
   )

@@ -94,7 +94,7 @@ function App() {
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', padding: '32px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', padding: '16px' }}>
       {/* Header bar */}
       <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #e5e7eb' }}>
         <p style={{ fontSize: '0.875rem' }}>Logged in as {user?.email}</p>
