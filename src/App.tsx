@@ -83,13 +83,11 @@ function App() {
 
   return (
     <div className="flex flex-col items-center gap-8 p-8">
-      <div className="w-full flex justify-between items-center max-w-3xl">
-        <div>
-          <p className="text-sm">Logged in as {user?.email}</p>
-        </div>
+      <div className="w-full max-w-3xl flex justify-between items-center" style={{ padding: '12px 0', borderBottom: '1px solid #e5e7eb' }}>
+        <p className="text-sm">Logged in as {user?.email}</p>
         <button
           onClick={() => logout()}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
         >
           Logout
         </button>
