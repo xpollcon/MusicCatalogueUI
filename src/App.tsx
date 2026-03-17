@@ -93,8 +93,8 @@ function App() {
         </button>
       </div>
 
-      <div className="card" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <img src={musicCatalogue} style={{ width: '50%', height: 'auto' }} alt="Music Catalogue" />
+      <div className="w-full max-w-3xl flex justify-center">
+        <img src={musicCatalogue} style={{ width: '100%', height: 'auto' }} alt="Music Catalogue" />
       </div>
 
       <div className="w-full max-w-3xl flex justify-center">
