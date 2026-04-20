@@ -63,3 +63,6 @@ Desktop.ini
 *.temp
 .temp
 .tmp
+
+# AI
+.claude

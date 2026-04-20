@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { useAuth0 } from '@auth0/auth0-react'
-import musicCatalogue from './assets/music_catalogue_banner_2.jpg'
 import './App.css'
 import {
   Table,
@@ -12,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { SearchBar } from './components/SearchBar'
+import { AddAlbumModal } from './components/AddAlbumModal'
 import { LIST_ALL_ALBUMS } from './queries/albums'
 
 interface Album {
@@ -42,6 +42,7 @@ function App() {
   })
 
   const [searchQuery, setSearchQuery] = useState('')
+  const [showModal, setShowModal] = useState(false)
 
   const signup = () => login({ authorizationParams: { screen_hint: "signup" } })
   const logout = () => auth0Logout({ logoutParams: { returnTo: window.location.origin } })
@@ -98,18 +99,26 @@ function App() {
       {/* Header bar */}
       <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #e5e7eb' }}>
         <p style={{ fontSize: '0.875rem' }}>Logged in as {user?.email}</p>
-        <button
-          onClick={() => logout()}
-          style={{ padding: '8px 16px', backgroundColor: '#dc2626', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
-        >
-          Logout
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            onClick={() => setShowModal(true)}
+            style={{ padding: '8px 16px', backgroundColor: '#2563eb', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
+          >
+            + Album
+          </button>
+          <button
+            onClick={() => logout()}
+            style={{ padding: '8px 16px', backgroundColor: '#dc2626', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
-      {/* Banner image */}
-      <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'center' }}>
-        <img src={musicCatalogue} style={{ width: '100%', height: 'auto' }} alt="Music Catalogue" />
-      </div>
+      {/* Title */}
+      <h1 style={{ fontFamily: "'Josefin Sans', sans-serif", fontSize: '3.5rem', fontWeight: 100, color: '#9ca3af', letterSpacing: '0.4em', textTransform: 'uppercase', margin: 0 }}>
+        Music Catalogue
+      </h1>
 
       {/* Search bar */}
       <div style={{ width: '100%', maxWidth: '768px', display: 'flex', justifyContent: 'center' }}>
@@ -145,6 +154,7 @@ function App() {
           </TableBody>
         </Table>
       </div>
+      {showModal && <AddAlbumModal onClose={() => setShowModal(false)} />}
     </div>
   )
 }

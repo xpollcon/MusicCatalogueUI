@@ -25,3 +25,16 @@ export const LIST_ALL_ALBUMS = gql`
     }
   }
 `;
+
+export const ADD_ALBUM = gql`
+  mutation AddAlbum($artist: String!, $title: String!, $mediaType: String!, $condition: String!) {
+    addAlbum(artist: $artist, title: $title, mediaType: $mediaType, condition: $condition) {
+      id
+      artist
+      title
+      mediaType
+      condition
+      username
+    }
+  }
+`;
