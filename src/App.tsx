@@ -27,6 +27,14 @@ interface AlbumsData {
   listAllAlbums: Album[]
 }
 
+const MEDIA_TYPE_LABELS: Record<string, string> = {
+  LP: 'LP',
+  CD: 'CD',
+  CASSETTE: 'Cassette',
+  BOX_SET: 'Box Set',
+  OTHER: 'Other',
+}
+
 function App() {
   const {
     isLoading: authLoading,
@@ -146,7 +154,7 @@ function App() {
                 <TableRow key={item.id} style={{ borderBottom: '1px solid black' }}>
                   <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.artist}</TableCell>
                   <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.title}</TableCell>
-                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.mediaType}</TableCell>
+                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{MEDIA_TYPE_LABELS[item.mediaType] ?? item.mediaType}</TableCell>
                   <TableCell style={{ textAlign: 'center' }}>{item.condition}</TableCell>
                 </TableRow>
               ))

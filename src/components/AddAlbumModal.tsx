@@ -68,16 +68,22 @@ export function AddAlbumModal({ onClose }: AddAlbumModalProps) {
           <div>
             <label style={labelStyle}>Media Type</label>
             <div style={{ display: 'flex', gap: '24px', marginTop: '4px', flexWrap: 'wrap' }}>
-              {['LP', 'CD', 'Cassette', 'Other'].map(option => (
-                <label key={option} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', color: '#374151', cursor: 'pointer' }}>
+              {[
+                { label: 'LP', value: 'LP' },
+                { label: 'CD', value: 'CD' },
+                { label: 'Cassette', value: 'CASSETTE' },
+                { label: 'Box Set', value: 'BOX_SET' },
+                { label: 'Other', value: 'OTHER' },
+              ].map(option => (
+                <label key={option.value} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.875rem', color: '#374151', cursor: 'pointer' }}>
                   <input
                     type="radio"
                     name="mediaType"
-                    value={option}
-                    checked={mediaType === option}
-                    onChange={() => setMediaType(option)}
+                    value={option.value}
+                    checked={mediaType === option.value}
+                    onChange={() => setMediaType(option.value)}
                   />
-                  {option}
+                  {option.label}
                 </label>
               ))}
             </div>
