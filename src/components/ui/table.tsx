@@ -10,7 +10,7 @@ const Table = React.forwardRef<
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
-      style={{ width: '100%', captionSide: 'bottom', fontSize: '1rem', borderCollapse: 'collapse', fontFamily: "'Vienna', serif" }}
+      style={{ width: '100%', captionSide: 'bottom', fontSize: '0.875rem', borderCollapse: 'collapse', fontFamily: "'Inter', system-ui, sans-serif" }}
       {...props}
     />
   </div>
