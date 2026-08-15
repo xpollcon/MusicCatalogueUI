@@ -1,25 +1,58 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client/react'
-import { ADD_ALBUM, LIST_ALL_ALBUMS } from '../queries/albums'
+import { ADD_ALBUM, UPDATE_ALBUM, DELETE_ALBUM, LIST_ALL_ALBUMS } from '../queries/albums'
+
+interface AlbumInput {
+  id: string
+  artist: string
+  title: string
+  mediaType: string
+  condition: string
+}
 
 interface AddAlbumModalProps {
+  album?: AlbumInput | null
   onClose: () => void
 }
 
-export function AddAlbumModal({ onClose }: AddAlbumModalProps) {
-  const [artist, setArtist] = useState('')
-  const [title, setTitle] = useState('')
-  const [mediaType, setMediaType] = useState('LP')
-  const [condition, setCondition] = useState('New')
+export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
+  const isEditing = !!album
 
-  const [addAlbum, { loading, error }] = useMutation(ADD_ALBUM, {
+  const [artist, setArtist] = useState(album?.artist ?? '')
+  const [title, setTitle] = useState(album?.title ?? '')
+  const [mediaType, setMediaType] = useState(album?.mediaType ?? 'LP')
+  const [condition, setCondition] = useState(album?.condition ?? 'New')
+
+  const [addAlbum, { loading: adding, error: addError }] = useMutation(ADD_ALBUM, {
     refetchQueries: [{ query: LIST_ALL_ALBUMS }],
     onCompleted: () => onClose(),
   })
 
+  const [updateAlbum, { loading: updating, error: updateError }] = useMutation(UPDATE_ALBUM, {
+    refetchQueries: [{ query: LIST_ALL_ALBUMS }],
+    onCompleted: () => onClose(),
+  })
+
+  const [deleteAlbum, { loading: deleting, error: deleteError }] = useMutation(DELETE_ALBUM, {
+    refetchQueries: [{ query: LIST_ALL_ALBUMS }],
+    onCompleted: () => onClose(),
+  })
+
+  const loading = adding || updating || deleting
+  const error = addError || updateError || deleteError
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    addAlbum({ variables: { artist, title, mediaType, condition } })
+    if (isEditing) {
+      updateAlbum({ variables: { id: album.id, artist, title, mediaType, condition } })
+    } else {
+      addAlbum({ variables: { artist, title, mediaType, condition } })
+    }
+  }
+
+  const handleDelete = () => {
+    if (!album) return
+    deleteAlbum({ variables: { id: album.id } })
   }
 
   const inputStyle = {
@@ -53,7 +86,7 @@ export function AddAlbumModal({ onClose }: AddAlbumModalProps) {
         onClick={e => e.stopPropagation()}
       >
         <h2 style={{ fontFamily: "'Josefin Sans', sans-serif", fontWeight: 100, fontSize: '1.5rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#9ca3af', marginBottom: '24px' }}>
-          Add Album
+          {isEditing ? 'Modify' : 'Add Album'}
         </h2>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -108,17 +141,26 @@ export function AddAlbumModal({ onClose }: AddAlbumModalProps) {
 
           {error && <p style={{ color: '#ef4444', fontSize: '0.875rem' }}>Error: {error.message}</p>}
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '8px' }}>
-            <button type="button" onClick={onClose}
-              style={{ padding: '8px 20px', borderRadius: '6px', border: '1px solid #e5e7eb', backgroundColor: 'white', cursor: 'pointer', fontSize: '0.875rem', color: '#6b7280' }}
-            >
-              Cancel
-            </button>
-            <button type="submit" disabled={loading}
-              style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#2563eb', color: 'white', cursor: 'pointer', fontSize: '0.875rem', opacity: loading ? 0.6 : 1 }}
-            >
-              {loading ? 'Saving...' : 'Add Album'}
-            </button>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+            {isEditing ? (
+              <button type="button" onClick={handleDelete} disabled={loading}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#dc2626', color: 'white', cursor: 'pointer', fontSize: '0.875rem', opacity: loading ? 0.6 : 1 }}
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+            ) : <span />}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button type="button" onClick={onClose}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: '1px solid #e5e7eb', backgroundColor: 'white', cursor: 'pointer', fontSize: '0.875rem', color: '#6b7280' }}
+              >
+                Cancel
+              </button>
+              <button type="submit" disabled={loading}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#2563eb', color: 'white', cursor: 'pointer', fontSize: '0.875rem', opacity: loading ? 0.6 : 1 }}
+              >
+                {isEditing ? (updating ? 'Saving...' : 'Save') : (adding ? 'Saving...' : 'Add Album')}
+              </button>
+            </div>
           </div>
         </form>
       </div>

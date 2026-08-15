@@ -51,6 +51,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [editingAlbum, setEditingAlbum] = useState<Album | null>(null)
 
   const signup = () => login({ authorizationParams: { screen_hint: "signup" } })
   const logout = () => auth0Logout({ logoutParams: { returnTo: window.location.origin } })
@@ -112,7 +113,7 @@ function App() {
             onClick={() => setShowModal(true)}
             style={{ padding: '8px 16px', backgroundColor: '#2563eb', color: 'white', borderRadius: '6px', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
           >
-            + Album
+            +/- Album
           </button>
           <button
             onClick={() => logout()}
@@ -153,7 +154,12 @@ function App() {
               filteredData.map((item: Album) => (
                 <TableRow key={item.id} style={{ borderBottom: '1px solid black' }}>
                   <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.artist}</TableCell>
-                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.title}</TableCell>
+                  <TableCell
+                    onClick={() => setEditingAlbum(item)}
+                    style={{ textAlign: 'center', borderRight: '1px solid black', cursor: 'pointer', textDecoration: 'underline', color: '#2563eb' }}
+                  >
+                    {item.title}
+                  </TableCell>
                   <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{MEDIA_TYPE_LABELS[item.mediaType] ?? item.mediaType}</TableCell>
                   <TableCell style={{ textAlign: 'center' }}>{item.condition}</TableCell>
                 </TableRow>
@@ -163,6 +169,7 @@ function App() {
         </Table>
       </div>
       {showModal && <AddAlbumModal onClose={() => setShowModal(false)} />}
+      {editingAlbum && <AddAlbumModal album={editingAlbum} onClose={() => setEditingAlbum(null)} />}
     </div>
   )
 }
