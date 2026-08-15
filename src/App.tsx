@@ -153,10 +153,10 @@ function App() {
             ) : (
               filteredData.map((item: Album) => (
                 <TableRow key={item.id} style={{ borderBottom: '1px solid black' }}>
-                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black' }}>{item.artist}</TableCell>
+                  <TableCell style={{ textAlign: 'center', borderRight: '1px solid black', fontWeight: 500 }}>{item.artist}</TableCell>
                   <TableCell
                     onClick={() => setEditingAlbum(item)}
-                    style={{ textAlign: 'center', borderRight: '1px solid black', cursor: 'pointer', textDecoration: 'underline', color: '#2563eb' }}
+                    style={{ textAlign: 'center', borderRight: '1px solid black', cursor: 'pointer', textDecoration: 'underline', color: '#2563eb', fontStyle: 'italic', fontWeight: 300 }}
                   >
                     {item.title}
                   </TableCell>
