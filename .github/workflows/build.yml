@@ -1,0 +1,21 @@
+name: Build
+
+# Checks that the app builds. Deploys are done by Cloudflare's GitHub integration
+# (Workers Builds), which deploys every merge to main and posts a preview link on PRs.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
