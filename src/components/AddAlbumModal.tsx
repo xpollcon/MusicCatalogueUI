@@ -8,6 +8,7 @@ interface AlbumInput {
   title: string
   mediaType: string
   condition: string
+  coverArtUrl?: string | null
 }
 
 interface AddAlbumModalProps {
@@ -22,6 +23,7 @@ export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
   const [title, setTitle] = useState(album?.title ?? '')
   const [mediaType, setMediaType] = useState(album?.mediaType ?? 'LP')
   const [condition, setCondition] = useState(album?.condition ?? 'New')
+  const [coverFailed, setCoverFailed] = useState(false)
 
   const [addAlbum, { loading: adding, error: addError }] = useMutation(ADD_ALBUM, {
     refetchQueries: [{ query: LIST_ALL_ALBUMS }],
@@ -98,6 +100,27 @@ export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
             <label style={labelStyle}>Title</label>
             <input style={inputStyle} value={title} onChange={e => setTitle(e.target.value)} required />
           </div>
+          {isEditing && (
+            <div>
+              <label style={labelStyle}>Cover</label>
+              {album.coverArtUrl && !coverFailed ? (
+                <img
+                  src={album.coverArtUrl}
+                  alt={`${album.artist} – ${album.title} cover`}
+                  onError={() => setCoverFailed(true)}
+                  style={{ width: '160px', height: '160px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #e5e7eb', display: 'block' }}
+                />
+              ) : (
+                <div style={{
+                  width: '160px', height: '160px', borderRadius: '6px', border: '1px dashed #d1d5db',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.75rem', color: '#9ca3af', textAlign: 'center', padding: '8px', boxSizing: 'border-box',
+                }}>
+                  No cover found
+                </div>
+              )}
+            </div>
+          )}
           <div>
             <label style={labelStyle}>Media Type</label>
             <div style={{ display: 'flex', gap: '24px', marginTop: '4px', flexWrap: 'wrap' }}>
