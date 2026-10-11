@@ -9,6 +9,7 @@ export const GET_ALBUMS_BY_ARTIST = gql`
       mediaType
       condition
       username
+      coverArtUrl
     }
   }
 `;
@@ -22,6 +23,7 @@ export const LIST_ALL_ALBUMS = gql`
       mediaType
       condition
       username
+      coverArtUrl
     }
   }
 `;
@@ -35,6 +37,7 @@ export const ADD_ALBUM = gql`
       mediaType
       condition
       username
+      coverArtUrl
     }
   }
 `;
@@ -48,6 +51,7 @@ export const UPDATE_ALBUM = gql`
       mediaType
       condition
       username
+      coverArtUrl
     }
   }
 `;

@@ -21,6 +21,7 @@ interface Album {
   mediaType: string
   condition: string
   username: string
+  coverArtUrl?: string | null
 }
 
 interface AlbumsData {
