@@ -65,6 +65,7 @@ export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
     fontSize: '0.875rem',
     outline: 'none',
     boxSizing: 'border-box' as const,
+    fontFamily: 'inherit',
   }
 
   const labelStyle = {
@@ -83,6 +84,7 @@ export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
     >
       <div style={{
         backgroundColor: 'white', borderRadius: '10px', padding: '32px',
+        fontFamily: "'Inter', system-ui, sans-serif",
         width: '100%', maxWidth: '440px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
       }}
         onClick={e => e.stopPropagation()}
@@ -167,19 +169,19 @@ export function AddAlbumModal({ album, onClose }: AddAlbumModalProps) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
             {isEditing ? (
               <button type="button" onClick={handleDelete} disabled={loading}
-                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#dc2626', color: 'white', cursor: 'pointer', fontSize: '0.875rem', opacity: loading ? 0.6 : 1 }}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#dc2626', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'inherit', opacity: loading ? 0.6 : 1 }}
               >
                 {deleting ? 'Deleting...' : 'Delete'}
               </button>
             ) : <span />}
             <div style={{ display: 'flex', gap: '8px' }}>
               <button type="button" onClick={onClose}
-                style={{ padding: '8px 20px', borderRadius: '6px', border: '1px solid #e5e7eb', backgroundColor: 'white', cursor: 'pointer', fontSize: '0.875rem', color: '#6b7280' }}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: '1px solid #e5e7eb', backgroundColor: 'white', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'inherit', color: '#6b7280' }}
               >
                 Cancel
               </button>
               <button type="submit" disabled={loading}
-                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#2563eb', color: 'white', cursor: 'pointer', fontSize: '0.875rem', opacity: loading ? 0.6 : 1 }}
+                style={{ padding: '8px 20px', borderRadius: '6px', border: 'none', backgroundColor: '#2563eb', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'inherit', opacity: loading ? 0.6 : 1 }}
               >
                 {isEditing ? (updating ? 'Saving...' : 'Save') : (adding ? 'Saving...' : 'Add Album')}
               </button>
